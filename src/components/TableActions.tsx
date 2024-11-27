@@ -64,13 +64,13 @@ const TableActions: React.FC<TableActionsProps> = ({ specieId, initialData, onAc
                                 />
                             </label>
                             <label className="block mb-2">
-                                Detalle:
-                                <input
-                                    type="text"
+                                Descripción:
+                                <textarea
                                     className="border p-2 w-full"
                                     value={formData.detail}
-                                    onChange={(e) => setFormData({ ...formData, detail: e.target.value })}
-                                />
+                                    onChange={(e) =>
+                                        setFormData({ ...formData, detail: e.target.value })}
+                                ></textarea>
                             </label>
                             <button
                                 type="button"

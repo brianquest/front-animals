@@ -28,6 +28,7 @@ const TableAdd: React.FC<TableAddPros> = ({ onAddComplete }) => {
         setAddModalOpen(false)
         setFormData({nameGroup:"", detail:""}); //limpio campos
     }
+    
     return (
         <div>
             {/* Botón para abrir el modal de agregar */}
