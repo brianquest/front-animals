@@ -1,18 +1,18 @@
 "use client"
-import React, { InputHTMLAttributes, useEffect, useState } from "react";
-import { getSpeciesList, SpecieGetDTO } from "../app/animals/api/specie_api"
-import TableActions from "./TableActions"; //agregar y modificar
-import TableAdd from "@/components/TableAdd";
+import React, { useEffect, useState } from "react";
+import { getSpeciesList, SpecieGetDTO } from "../../app/animals/api/specie_api"
+import TableActionsSpecie from "./TableActionsSpecie"; //agregar y modificar
+import TableAddSpecie from "@/components/specie/TableAddSpecie";
 
 
 
-const TableInfo = () => {
+const TableInfoSpecie = () => {
     const [species, setSpecies] = useState<SpecieGetDTO[]>([]);// Data  original de especies
     const [loading, setLoading] = useState(true); // Indicar si los datos están cargando
 
     // insumos para la barra search
     const [filteredSpecies, setFilteredSpecies] = useState<SpecieGetDTO[]>([]); //lista de especies filtrada
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState(""); // Almacena el texto que el usuario escribe en la barra de búsqueda
 
     // Obtener datos del endpoint
     const fetchSpecies = async () => {
@@ -21,7 +21,7 @@ const TableInfo = () => {
             const response = await getSpeciesList(); // Llamo a la API
             if (response.status) {
                 setSpecies(response.data); // Actualizamos el estado con las especies
-                setFilteredSpecies(response.data);
+                setFilteredSpecies(response.data); // llistado de las especiesd filtradas
             } else {
                 console.log(response.messege || "Error del backend"); // Mostramos el error
             }
@@ -34,8 +34,8 @@ const TableInfo = () => {
 
     // Función para manejar el cambio en la barra de búsqueda
     const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const term = e.target.value.toLowerCase();
-        setSearchTerm(term);
+        const term = e.target.value.toLowerCase(); // Convertimos el texto de entrada a minúsculas
+        setSearchTerm(term); // // Actualizamos el estado de búsqueda
 
         //filtrar registros
         const filtered = species.filter((specie) => {
@@ -46,10 +46,10 @@ const TableInfo = () => {
                 .map((animal) => animal.animalName.toLowerCase())
                 .join(", ")
                 .includes(term);
-            return groupMatch || descriptionMatch || animalsMatch;
+            return groupMatch || descriptionMatch || animalsMatch; // Filtrar si coincide con al menos uno
 
         });
-        setFilteredSpecies(filtered);
+        setFilteredSpecies(filtered); // Actualizamos los registros filtrados
     };
 
     // Obtener datos del endpoint
@@ -62,15 +62,17 @@ const TableInfo = () => {
     return (
         <div className="overflow-x-auto">
             {/* Barra de herramientas */}
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex justify-between items-center py-2 px-2 ">
                 <input
                     type="text"
                     placeholder="Buscar por grupo, descripción o animales..."
                     value={searchTerm}
                     onChange={handleSearch}
-                    className="border p-2 w-2/3"
+                    className="border border-gray-300  p-2 w-3/4"
                 />
-                <TableAdd onAddComplete={fetchSpecies} />
+                <div className="flex-1 flex justify-center">
+                <TableAddSpecie onAddComplete={fetchSpecies} />
+                </div>
             </div>
             <table className="min-w-full border-collapse border border-gray-200">
                 <thead className="bg-gray-100">
@@ -95,7 +97,7 @@ const TableInfo = () => {
                                     : "Sin animales"}
                             </td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
-                                <TableActions
+                                <TableActionsSpecie
                                     specieId={specie.specieId}
                                     initialData={{ nameGroup: specie.nameGroup, detail: specie.detail }}
                                     onActionComplete={fetchSpecies} //// Recarga los datos al completar el modal (editar o eliminar)
@@ -109,4 +111,4 @@ const TableInfo = () => {
     );
 };
 
-export default TableInfo;
+export default TableInfoSpecie;
