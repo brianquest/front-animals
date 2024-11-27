@@ -56,6 +56,17 @@ export const deleteSpecieById = async (specieId: string): Promise<ApiResponse<Si
   }
 }
 
+// Función para agregar una nueva especie
+export const addSpecie = async (newSpecie: SimpleSpecieDTO): Promise<ApiResponse<SimpleAnimalDTO>> => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/add-specie`, newSpecie);
+    return response.data;
+  } catch (error) {
+    console.log("Error al agregar especie:", error);
+    throw error;
+  }
+}
+
 /**
 // Función para agregar una nueva especie
 export const addSpecie = async (specieDTO: SpecieDTO): Promise<Specie> => {

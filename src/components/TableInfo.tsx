@@ -1,7 +1,9 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import { getSpeciesList, SpecieGetDTO } from "../app/animals/api/specie_api"
-import TableActions from "./TableActions";
+import TableActions from "./TableActions"; //agregar y modificar
+import TableAdd from "@/components/TableAdd";
+
 
 const TableInfo = () => {
     const [species, setSpecies] = useState<SpecieGetDTO[]>([]);// Data de las especies
@@ -29,8 +31,11 @@ const TableInfo = () => {
     }, []); // El arreglo vacío asegura que solo se ejecute al montar
 
     if (loading) return <p className="border border-gray-300 px-4 py-2 text-center">Loading...</p>;
+
     return (
         <div className="overflow-x-auto">
+            {/* Barra de herramientas */}
+            <TableAdd onAddComplete={fetchSpecies} />
             <table className="min-w-full border-collapse border border-gray-200">
                 <thead className="bg-gray-100">
                     <tr>
@@ -53,7 +58,7 @@ const TableInfo = () => {
                                         simpleAnimalDTOs.animalName).join(", ")
                                     : "Sin animales"}
                             </td>
-                            <td className="border border-gray-300 px-4 py-2">
+                            <td className="border border-gray-300 px-4 py-2 text-center">
                                 <TableActions
                                     specieId={specie.specieId}
                                     initialData={{ nameGroup: specie.nameGroup, detail: specie.detail }}
