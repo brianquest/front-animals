@@ -1,11 +1,11 @@
 import React from "react";
 
 
-const TableInfo = ()=> {
+const TableInfoAnimal = ()=> {
 
     return (
         <p>Holii</p>
     );
 };
 
-export default TableInfo;
+export default TableInfoAnimal;
