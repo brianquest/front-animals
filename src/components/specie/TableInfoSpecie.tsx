@@ -21,7 +21,7 @@ const TableInfoSpecie = () => {
             const response = await getSpeciesList(); // Llamo a la API
             if (response.status) {
                 setSpecies(response.data); // Actualizamos el estado con las especies
-                setFilteredSpecies(response.data); // llistado de las especiesd filtradas
+                setFilteredSpecies(response.data); // listado de las especiesd filtradas
             } else {
                 console.log(response.messege || "Error del backend"); // Mostramos el error
             }
