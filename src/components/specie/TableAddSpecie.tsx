@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SimpleSpecieDTO, addSpecie } from "@/app/animals/api/specie_api";
+import { SpecieNewDTO, addSpecie } from "@/app/animals/api/specie_api";
 
 interface TableAddSpeciePros {
     onAddComplete: () => void;  
@@ -8,7 +8,7 @@ interface TableAddSpeciePros {
 const TableAddSpecie: React.FC<TableAddSpeciePros> = ({ onAddComplete }) => {
 
     const [isAddModalopen, setAddModalOpen] = useState(false); // Estado para manejar la visibilidad del modal
-    const [formData, setFormData] = useState<SimpleSpecieDTO>({ nameGroup: "", detail: "" }) // Estado para los datos del formulario
+    const [formData, setFormData] = useState<SpecieNewDTO>({ nameGroup: "", detail: "" }) // Estado para los datos del formulario
 
     const handleAdd = async () => {
         try {

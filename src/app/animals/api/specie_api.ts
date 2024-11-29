@@ -6,16 +6,22 @@ const API_BASE_URL = "http://localhost:7209/api/specie";
 
 // Define los tipos para los datos que enviarás y recibirás
 export interface SpecieGetDTO {
-  specieId: string; // Guid
-  nameGroup: string;
-  detail: string;
-  simpleAnimalDTOs: SimpleAnimalDTO[]; // Relación con animales
+  specieId: string, // Guid
+  nameGroup: string,
+  detail: string,
+  simpleAnimalDTOs: SimpleAnimalDTO[] // Relación con animales
+}
+
+export interface SpecieNewDTO {
+  nameGroup: string,
+  detail: string
 }
 
 export interface SimpleSpecieDTO {
-  nameGroup: string;
-  detail: string;
+  specieId: string, // Guid
+  nameGroup: string,
 }
+
 
 export interface ApiResponse<T> {
   status: boolean,
@@ -35,7 +41,7 @@ export const getSpeciesList = async (): Promise<ApiResponse<SpecieGetDTO[]>> => 
 };
 
 // Función para actualizar una especie por ID
-export const updateSpecieById = async (specieId: string, updatedData: SimpleSpecieDTO): Promise<ApiResponse<SimpleSpecieDTO>> => {
+export const updateSpecieById = async (specieId: string, updatedData: SpecieNewDTO): Promise<ApiResponse<SpecieNewDTO>> => {
   try {
     const response = await axios.put(`${API_BASE_URL}/update-specie-by-id/${specieId}`, updatedData);
     return response.data;
@@ -46,7 +52,7 @@ export const updateSpecieById = async (specieId: string, updatedData: SimpleSpec
 }
 
 // Función para eliminar una especie por ID
-export const deleteSpecieById = async (specieId: string): Promise<ApiResponse<SimpleSpecieDTO>> => {
+export const deleteSpecieById = async (specieId: string): Promise<ApiResponse<SpecieNewDTO>> => {
   try {
     const response = await axios.delete(`${API_BASE_URL}/delete-secie-by-id/${specieId}`);
     return response.data;
@@ -57,7 +63,7 @@ export const deleteSpecieById = async (specieId: string): Promise<ApiResponse<Si
 }
 
 // Función para agregar una nueva especie
-export const addSpecie = async (newSpecie: SimpleSpecieDTO): Promise<ApiResponse<SimpleAnimalDTO>> => {
+export const addSpecie = async (newSpecie: SpecieNewDTO): Promise<ApiResponse<SimpleAnimalDTO>> => {
   try {
     const response = await axios.post(`${API_BASE_URL}/add-specie`, newSpecie);
     return response.data;
@@ -66,29 +72,13 @@ export const addSpecie = async (newSpecie: SimpleSpecieDTO): Promise<ApiResponse
     throw error;
   }
 }
-
-/**
-// Función para agregar una nueva especie
-export const addSpecie = async (specieDTO: SpecieDTO): Promise<Specie> => {
+// funcion para mostrar lista de nombres de especie
+export const getSpecieShortList = async (): Promise<ApiResponse<SimpleSpecieDTO[]>> => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/add-specie`, specieDTO);
+    const response = await axios.get(`${API_BASE_URL}/get-species-short-list`);
     return response.data;
   } catch (error) {
-    console.error("Error adding specie:", error);
+    console.log("Error al agregar especie:", error);
     throw error;
   }
-};
-
-// Función para eliminar una especie por ID
-export const deleteSpecieById = async (specieId: string): Promise<Specie> => {
-  try {
-    const response = await axios.delete(
-      `${API_BASE_URL}/delete-secie-by-id?specieId=${specieId}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error deleting specie:", error);
-    throw error;
-  }
-};
- */
+}

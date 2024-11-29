@@ -71,7 +71,7 @@ const TableInfoSpecie = () => {
                     className="border border-gray-300  p-2 w-3/4"
                 />
                 <div className="flex-1 flex justify-center">
-                <TableAddSpecie onAddComplete={fetchSpecies} />
+                    <TableAddSpecie onAddComplete={fetchSpecies} />
                 </div>
             </div>
             <table className="min-w-full border-collapse border border-gray-200">
@@ -99,7 +99,10 @@ const TableInfoSpecie = () => {
                             <td className="border border-gray-300 px-4 py-2 text-center">
                                 <TableActionsSpecie
                                     specieId={specie.specieId}
-                                    initialData={{ nameGroup: specie.nameGroup, detail: specie.detail }}
+                                    initialData={{
+                                        nameGroup: specie.nameGroup,
+                                        detail: specie.detail
+                                    }}
                                     onActionComplete={fetchSpecies} //// Recarga los datos al completar el modal (editar o eliminar)
                                 />
                             </td>

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { deleteSpecieById, updateSpecieById, SimpleSpecieDTO } from "../../app/animals/api/specie_api"
+import { deleteSpecieById, updateSpecieById, SpecieNewDTO } from "../../app/animals/api/specie_api"
 
 interface TableActionsSpecieProps {
-    specieId: string; //  ID de la especie (para identificarla en las acciones)
-    initialData: SimpleSpecieDTO; // Datos iniciales para edición
-    onActionComplete: () => void; //Callback para renderizar TableInfo 
+    specieId: string, //  ID de la especie (para identificarla en las acciones)
+    initialData: SpecieNewDTO, // Datos iniciales para edición
+    onActionComplete: () => void //Callback para renderizar TableInfo 
 }
 
 const TableActionsSpecie: React.FC<TableActionsSpecieProps> = ({ specieId, initialData, onActionComplete }) => {
     const [isEditModalOpen, setEditModalOpen] = useState(false); // Modal de edicion
     const [isDeleteModalOpen, setDeleteModalOpen] = useState(false); // Modal de eliminacion
-    const [formData, setFormData] = useState<SimpleSpecieDTO>(initialData); // Datos del formulario de edición
+    const [formData, setFormData] = useState<SpecieNewDTO>(initialData); // Datos del formulario de edición
 
     // Manejo del modal de edición
     const handleEdit = async () => {
@@ -39,7 +39,7 @@ const TableActionsSpecie: React.FC<TableActionsSpecieProps> = ({ specieId, initi
     };
 
     return (
-        <div>
+        <div className="flex justify-around">
             {/* Botón para abrir el modal de edición */}
             <button
                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"

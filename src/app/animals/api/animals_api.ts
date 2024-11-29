@@ -2,16 +2,16 @@ import axios from "axios";
 
 const API_BASE_URL = "http://localhost:7209/api/animal"
 
-export interface Animal {
+export interface AnimalGetDTO {
   animalId: string,
   animalName: string,
   numberLegs: number,
   animalLocomotion: string,
   specieId: string,
-  specie: string | null;
+  nameGroup: string
 }
 
-export interface AnimalDTO {
+export interface AnimalNewDTO {
   animalName: string;
   numberLegs: number;
   animalLocomotion: string;
@@ -23,18 +23,35 @@ export interface SimpleAnimalDTO {
   animalName: string
 }
 
+export interface ApiResponse<T> {
+  status: boolean,
+  messege: string,
+  data: T // Aquí T puede ser cualquier tipo de dato
+}
+
 // Función para obtener la lista de animales
-export const getAnimalsList = async (): Promise<Animal[]> => {
+export const getAnimalsList = async (): Promise<ApiResponse<AnimalGetDTO[]>> => {
   try {
     const response = await axios.get(`${API_BASE_URL}/get-animals-list`);
-    console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error("Error fetching animals list:", error);
+    console.error("Error fetching animal list:", error);
     throw error;
   }
-};
+}
 
+// Función para actualizar un animal por ID
+export const updateAnimalById = async(animalId: string, updatedData: AnimalNewDTO): Promise<ApiResponse<AnimalNewDTO>> => {
+  try {
+    const response = await axios.put(`${API_BASE_URL}/updat-animal-by-id/${animalId}`,updatedData)
+    return response.data
+  } catch (error) {
+    console.error("Error al actualizar el animal", error)
+    throw error
+  }
+}
+
+/**
 // Función para agregar un nuevo animal
 export const addAnimal = async (animalDTO: AnimalDTO): Promise<Animal> => {
   try {
@@ -75,3 +92,5 @@ export const deleteAnimalById = async (animalId: string): Promise<Animal> => {
     throw error;
   }
 };
+
+*/
