@@ -41,9 +41,9 @@ export const getAnimalsList = async (): Promise<ApiResponse<AnimalGetDTO[]>> => 
 }
 
 // Función para actualizar un animal por ID
-export const updateAnimalById = async(animalId: string, updatedData: AnimalNewDTO): Promise<ApiResponse<AnimalNewDTO>> => {
+export const updateAnimalById = async (animalId: string, updatedData: AnimalNewDTO): Promise<ApiResponse<AnimalNewDTO>> => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/updat-animal-by-id/${animalId}`,updatedData)
+    const response = await axios.put(`${API_BASE_URL}/updat-animal-by-id/${animalId}`, updatedData)
     return response.data
   } catch (error) {
     console.error("Error al actualizar el animal", error)
@@ -51,6 +51,16 @@ export const updateAnimalById = async(animalId: string, updatedData: AnimalNewDT
   }
 }
 
+// Función para eliminar un animal por ID
+export const deleteAnimalById = async (animalId: string): Promise<ApiResponse<AnimalGetDTO>> => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/delet-animal-by-id/${animalId}`)
+    return response.data
+  } catch (error) {
+    console.error("Error al eliminar el animal: ", error)
+    throw error
+  }
+}
 /**
 // Función para agregar un nuevo animal
 export const addAnimal = async (animalDTO: AnimalDTO): Promise<Animal> => {
@@ -63,22 +73,6 @@ export const addAnimal = async (animalDTO: AnimalDTO): Promise<Animal> => {
   }
 };
 
-// Función para actualizar un animal por ID
-export const updateAnimalById = async (
-  animalId: string,
-  animalDTO: AnimalDTO
-): Promise<Animal> => {
-  try {
-    const response = await axios.put(
-      `${API_BASE_URL}/updat-animal-by-id?specieId=${animalId}`,
-      animalDTO
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error updating animal:", error);
-    throw error;
-  }
-};
 
 // Función para eliminar un animal por ID
 export const deleteAnimalById = async (animalId: string): Promise<Animal> => {

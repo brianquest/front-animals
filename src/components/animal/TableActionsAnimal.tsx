@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getSpecieShortList, SimpleSpecieDTO } from "@/app/animals/api/specie_api"
-import { AnimalNewDTO, updateAnimalById } from "@/app/animals/api/animals_api";
+import { AnimalNewDTO, updateAnimalById, deleteAnimalById } from "@/app/animals/api/animals_api";
 
 
 interface TableActionsAnimalProps {
@@ -11,13 +11,13 @@ interface TableActionsAnimalProps {
 }
 
 const TableActionsAnimal: React.FC<TableActionsAnimalProps> = ({ animalId, initialData, onActionComplete }) => {
-    const [isEditModalOpen, setEditModalOpen] = useState(false) // Estado del modal
-
+    const [isEditModalOpen, setEditModalOpen] = useState(false) // Estado del modal de edicion
+    const [isDeleteModalOpen, setDeleteModalOpen] = useState(false) // Estado modal de eliminacion
     const [formData, setFormData] = useState<AnimalNewDTO>(initialData); // Datos del formulario de edición
     const [specieList, setSpecieList] = useState<SimpleSpecieDTO[]>([]); // lista de epseice desponible
     const [currentSpecieName, setCurrentSpecieName] = useState<string>(""); // escpecie altual que tiene el animal
 
-
+    // Obtenemos la lsita de especie disponibles
     const fetchSpeciesList = async () => {
         try {
             const response = await getSpecieShortList() // Llamo a la API
@@ -42,11 +42,8 @@ const TableActionsAnimal: React.FC<TableActionsAnimalProps> = ({ animalId, initi
         }
     }, [isEditModalOpen])//cada vez que cambie el estado del modal de editar
 
-
     // Función para guardar cambios
     const handleEdit = async () => {
-        console.log(animalId)
-        console.log(formData)
         try {
             const response = await updateAnimalById(animalId, formData);
             if (response.status) {
@@ -60,8 +57,18 @@ const TableActionsAnimal: React.FC<TableActionsAnimalProps> = ({ animalId, initi
         }
     };
 
+    const handleDelete = async () => {
+        try {
+            await deleteAnimalById(animalId)
+            setDeleteModalOpen(false)
+            onActionComplete()
+        } catch (error) {
+            console.error("Error al eliminar el animal:", error)
+        }
+    }
+
     return (
-        <div className="flex justify-around">
+        <div className="flex justify-center ">
             {/* Botón para abrir el modal de edición */}
             <button
                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
@@ -145,11 +152,44 @@ const TableActionsAnimal: React.FC<TableActionsAnimalProps> = ({ animalId, initi
                                     Cancelar
                                 </button>
                             </div>
-
                         </form>
                     </div>
                 </div>
             )}
+
+            <button
+                className="ml-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                onClick={() => { setDeleteModalOpen(true) }}
+            >
+                Eliminar
+            </button>
+
+            {/* Modal de eliminacion */}
+            {isDeleteModalOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                    <div className="bg-white p-6 rounded shadow-lg">
+                        <h3 className="text-lg font-bold mb-4">Confirmar Eliminación</h3>
+                        <p>¿Estás seguro de que deseas eliminar esta especie?</p>
+                        
+                        <div className="flex justify-center mt-4">
+                                <button type="button"
+                                    className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                                    onClick={handleDelete}
+                                >
+                                    Eliminar
+                                </button>
+                                <button type="button"
+                                    className="ml-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+                                    onClick={() => setDeleteModalOpen(false)}
+                                >
+                                    Cancelar
+                                </button>
+                            </div>
+
+                    </div>
+                </div>
+            )}
+
         </div>
     )
 }

@@ -41,7 +41,7 @@ export const getSpeciesList = async (): Promise<ApiResponse<SpecieGetDTO[]>> => 
 };
 
 // Función para actualizar una especie por ID
-export const updateSpecieById = async (specieId: string, updatedData: SpecieNewDTO): Promise<ApiResponse<SpecieNewDTO>> => {
+export const updateSpecieById = async (specieId: string, updatedData: SpecieNewDTO): Promise<ApiResponse<SpecieGetDTO>> => {
   try {
     const response = await axios.put(`${API_BASE_URL}/update-specie-by-id/${specieId}`, updatedData);
     return response.data;

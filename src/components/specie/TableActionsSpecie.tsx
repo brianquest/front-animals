@@ -34,7 +34,6 @@ const TableActionsSpecie: React.FC<TableActionsSpecieProps> = ({ specieId, initi
             onActionComplete(); // Notificar que la acción está completa
         } catch (error) {
             console.error("Error al eliminar la especie:", error);
-            alert("Hubo un error al eliminar la especie.");
         }
     };
 
@@ -100,7 +99,7 @@ const TableActionsSpecie: React.FC<TableActionsSpecieProps> = ({ specieId, initi
                 Eliminar
             </button>
 
-            {/* Modal de edición */}
+            {/* Modal de eliminacion */}
             {isDeleteModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
                     <div className="bg-white p-6 rounded shadow-lg">

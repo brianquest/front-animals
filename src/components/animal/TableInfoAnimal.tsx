@@ -95,7 +95,7 @@ const TableInfoAnimal = () => {
                             <td className="border border-gray-300 px-4 py-2">{animal.numberLegs}</td>
                             <td className="border border-gray-300 px-4 py-2">{animal.animalLocomotion}</td>
                             <td className="border border-gray-300 px-4 py-2">{animal.nameGroup}</td>
-                            <td className="border border-gray-300 px-4 py-2">
+                            <td className="border border-gray-300 py-2 w-48">
                                 <TableActionsAnimal
                                     animalId={animal.animalId}
                                     initialData={{
