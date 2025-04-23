@@ -68,7 +68,7 @@ const TableInfoSpecie = () => {
                     placeholder="Buscar por grupo, descripción o animales..."
                     value={searchTerm}
                     onChange={handleSearch}
-                    className="border border-gray-300  p-2 w-3/4"
+                    className="border border-gray-300  p-2 w-3/4" style={{ color: 'black' }}
                 />
                 <div className="flex-1 flex justify-center">
                     <TableAddSpecie onAddComplete={fetchSpecies} />
@@ -77,16 +77,16 @@ const TableInfoSpecie = () => {
             <table className="min-w-full border-collapse border border-gray-200">
                 <thead className="bg-gray-100">
                     <tr>
-                        <th className="border border-gray-300 px-4 py-2 text-left">#</th>
-                        <th className="border border-gray-300 px-4 py-2 text-left">Grupo</th>
-                        <th className="border border-gray-300 px-4 py-2 text-left">Descripción</th>
-                        <th className="border border-gray-300 px-4 py-2 text-left">Animales</th>
-                        <th className="border border-gray-300 px-4 py-2 text-left">Acciones</th>
+                        <th className="border border-gray-300 px-4 py-2 text-left" style={{ color: 'black' }}>#</th>
+                        <th className="border border-gray-300 px-4 py-2 text-left" style={{ color: 'black' }}>Grupo</th>
+                        <th className="border border-gray-300 px-4 py-2 text-left" style={{ color: 'black' }}>Descripción</th>
+                        <th className="border border-gray-300 px-4 py-2 text-left" style={{ color: 'black' }}>Animales</th>
+                        <th className="border border-gray-300 px-4 py-2 text-left" style={{ color: 'black' }}>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {filteredSpecies.map((specie, index) => (
-                        <tr key={specie.specieId} className="odd:bg-white even:bg-gray-50">
+                        <tr key={specie.specieId} className="odd:bg-white even:bg-gray-50" style={{ color: 'black' }}>
                             <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
                             <td className="border border-gray-300 px-4 py-2">{specie.nameGroup}</td>
                             <td className="border border-gray-300 px-4 py-2">{specie.detail}</td>

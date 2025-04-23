@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAnimalsList, AnimalGetDTO } from "@/app/animals/api/animals_api"; // Insumos para listar los animales
 import TableActionsAnimal from "@/components/animal/TableActionsAnimal" // Insumos para agregar y modificar un animal
+import TableAddAnimal from "./TableAddAnimal";
 // import TableAddSpecie from "@/components/specie/TableAddSpecie";
 
 const TableInfoAnimal = () => {
@@ -61,14 +62,16 @@ const TableInfoAnimal = () => {
                     placeholder="Buscar por grupo, descripción o animales..."
                     value={searchTerm}
                     onChange={handleSearch}
-                    className="border border-gray-300  p-2 w-3/4"
+                    className="border border-gray-300  p-2 w-3/4" style={{ color: 'black' }}
                 />
-                <div></div>
+                <div className="flex-1 flex justify-center">
+                <TableAddAnimal onAddComplete={fetchAnimal} />
+                </div>
             </div>
             <table className="min-w-full border-collapse border border-gray-200">
-                <thead className="bg-gray-100">
+                <thead className="bg-gray-100 "style={{ color: 'black' }}>
                     <tr>
-                        <th className="border border-gray-300 px-4 py-2 text-left">
+                        <th className="border border-gray-300 px-4 py-2 text-left ">
                             #
                         </th>
                         <th className="border border-gray-300 px-4 py-2 text-left">
@@ -93,12 +96,12 @@ const TableInfoAnimal = () => {
                         <tr key={animal.animalId}
                             className="odd:bg-white even:bg-gray-50"
                         >
-                            <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
-                            <td className="border border-gray-300 px-4 py-2">{animal.animalName}</td>
-                            <td className="border border-gray-300 px-4 py-2">{animal.numberLegs}</td>
-                            <td className="border border-gray-300 px-4 py-2">{animal.animalLocomotion}</td>
-                            <td className="border border-gray-300 px-4 py-2">{animal.nameGroup}</td>
-                            <td className="border border-gray-300 py-2 w-48">
+                            <td className="border border-gray-300 px-4 py-2" style={{ color: 'black' }}>{index + 1}</td>
+                            <td className="border border-gray-300 px-4 py-2"style={{ color: 'black' }}>{animal.animalName}</td>
+                            <td className="border border-gray-300 px-4 py-2"style={{ color: 'black' }}>{animal.numberLegs}</td>
+                            <td className="border border-gray-300 px-4 py-2"style={{ color: 'black' }}>{animal.animalLocomotion}</td>
+                            <td className="border border-gray-300 px-4 py-2"style={{ color: 'black' }}>{animal.nameGroup}</td>
+                            <td className="border border-gray-300 py-2 w-48"style={{ color: 'black' }}>
                                 <TableActionsAnimal
                                     animalId={animal.animalId}
                                     initialData={{
